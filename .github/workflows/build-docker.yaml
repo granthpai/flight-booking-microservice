@@ -9,9 +9,12 @@ jobs:
          - name: checkout
            uses: actions/checkout@v4
          - name: build image
-           run: docker build ./booking-service -t granthpai/booking-service:latest 
+           run: |
+            docker build ./booking-service -t granthpai/booking-service:latest 
+            docker build ./flight-service -t granthpai/flight-service:latest
          - name: push image to docker hub
            run: |
             docker login -u granthpai -p ${{secrets.DOCKER_HUB_TOKEN}}
             docker push granthpai/booking-service:latest
+            docker push granthpai/flight-service:latest
       
