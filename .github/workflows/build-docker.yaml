@@ -1,6 +1,12 @@
 name: Build and publish image to Docker Hub
+
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
+    paths:
+      - 'booking-service/Dockerfile'
+      - 'flight-service/Dockerfile'
 
 jobs:
   publish_images:
@@ -15,10 +21,12 @@ jobs:
           username: granthpai
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           
-      - name: Build and push images
+      - name: Build and push booking service
         run: |
-          docker build ./booking-service -t granthpai/booking-service:latest 
+          docker build ./booking-service -t granthpai/booking-service:latest
           docker push granthpai/booking-service:latest
           
+      - name: Build and push flight service
+        run: |
           docker build ./flight-service -t granthpai/flight-service:latest
           docker push granthpai/flight-service:latest
