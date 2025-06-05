@@ -1,0 +1,17 @@
+name: Build and publish image to Docker Hub
+on:
+  [workflow_dispatch]
+
+jobs:
+   publish_images:
+      runs_on: windows-latest
+      steps:
+         - name: checkout
+           uses: actions/checkout@v4
+         - name: build image
+           run: docker build ./booking-service -t granthpai/booking-service:latest 
+         - name: push image to docker hub
+           run: |
+            docker login -u granthpai -p ${{secrets.DOCKER_HUB_TOKEN}}
+            docker push granthpai/booking-service:latest
+      
