@@ -4,7 +4,7 @@ on:
 
 jobs:
    publish_images:
-      runs_on: windows-latest
+      runs-on: windows-latest
       steps:
          - name: checkout
            uses: actions/checkout@v4
